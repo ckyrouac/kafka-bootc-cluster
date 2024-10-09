@@ -1,0 +1,21 @@
+[Container]
+Image=docker.io/apache/kafka:3.8.0
+GlobalArgs=--storage-opt=additionalimagestore=/usr/lib/bootc/storage
+PublishPort=9092:9092
+
+Environment=KAFKA_PROCESS_ROLES=broker
+Environment=KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+Environment=KAFKA_CONTROLLER_LISTENER_NAMES=CONTROLLER
+Environment=KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+Environment=KAFKA_CONTROLLER_QUORUM_VOTERS=4@kafka-controller-1:9093,5@kafka-controller-2:9093,6@kafka-controller-3:9093
+Environment=KAFKA_LISTENERS='PLAINTEXT://:9092'
+Environment=KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS=0
+
+[Unit]
+Description=Kafka broker
+
+[Install]
+WantedBy=default.target
+
+[Service]
+Restart=always

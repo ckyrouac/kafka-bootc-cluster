@@ -1,0 +1,13 @@
+[Container]
+Image=docker.io/prom/node-exporter:v1.8.2
+GlobalArgs=--storage-opt=additionalimagestore=/usr/lib/bootc/storage
+PublishPort=9100:9100
+
+[Unit]
+Description=Prometheus
+
+[Install]
+WantedBy=default.target
+
+[Service]
+Restart=always

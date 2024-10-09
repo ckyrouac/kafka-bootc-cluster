@@ -1,0 +1,17 @@
+FROM quay.io/centos-bootc/centos-bootc:stream9
+
+COPY ./usr/. /usr
+
+RUN <<EOF
+# install dependencies
+dnf -y install firewalld
+dnf clean all
+
+# bind kafka-node image to the bootc image
+ln -s /usr/share/containers/systemd/kafka-broker.container /usr/lib/bootc/bound-images.d/kafka-broker.container
+ln -s /usr/share/containers/systemd/prometheus.container /usr/lib/bootc/bound-images.d/prometheus.container
+
+# expose Kafka port 9092 and prometheus port 9100
+firewall-offline-cmd --add-port 9092/tcp --add-port 9100/tcp
+
+EOF

@@ -1,0 +1,4 @@
+FROM localhost/kafka-controller
+
+COPY ./usr/. /usr
+COPY ./etc/. /etc

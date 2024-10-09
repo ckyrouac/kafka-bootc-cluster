@@ -1,0 +1,4 @@
+FROM localhost/kafka-broker
+
+COPY ./usr/. /usr
+COPY ./etc/. /etc
